@@ -1,11 +1,9 @@
 #!/bin/bash
 read -p " Enter your host (default : 192.168.122.53 ) : " host
 host=${host:-'192.168.122.53'}
-echo 'Enter your username (default : root)'
-read user
+read -p "Enter your username (default : root) :" user
 user=${user:-'root'}
-echo 'Enter your password '
-read password
+read -s -p "Enter your password : " password
 echo 'Connecting to your host on ssh and creating the virtual machine'
 
 id=${1:-'100'}
