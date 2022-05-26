@@ -4,6 +4,10 @@ host=${host:-'192.168.122.53'}
 read -p "Enter your username (default : root) :" user
 user=${user:-'root'}
 read -s -p "Enter your password : " password
+
+echo "Downloading the latest version of sshpass"
+sudo apt install sshpass
+sudo apt update
 echo 'Connecting to your host on ssh and creating the virtual machine'
 
 id=${1:-'100'}
