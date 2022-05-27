@@ -1,0 +1,11 @@
+---
+
+- hosts: proxmox
+
+  tasks:
+
+    - name: Create vm
+      ansible.builtin.command: qm create {{ id }} --name {{ name }} --cdrom local:iso/{{ iso }} --memory {{ memory }} --socket {{ socket }}
+      
+    
+    
