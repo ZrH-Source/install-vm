@@ -1,12 +1,10 @@
 #!/bin/bash
 
-if [ $(which ansible &>/dev/null) ]; then 
-  echo 'Installing ansible.'
-  sudo apt update
-  sudo apt install software-properties-common
-  sudo add-apt-repository --yes --update ppa:ansible/ansible
-  sudo apt install ansible 
-fi 
+if [ $(which ansible &>/dev/null) ]; then
+echo 'Installing ansible.'
+sudo add-apt-repository -y --update ppa:ansible/ansible
+sudo apt install software-properties-common ansible -y
+fi
 
 read -p "Enter the id of the vm (100) : " id
 read -p "Enter the name of the vm (debian) : " name
@@ -19,14 +17,15 @@ name=${name:-'debian'}
 memory=${memory:-'2048'}
 socket=${socket:-'2'}
 iso=${iso:-'debian-11.3.0-amd64-netinst.iso'}
-current_time=$(date "+%Y.%m.%d-%H.%M")
+current_extra_vars_file=“extra_vars.$(date "+%Y.%m.%d-%H.%M").yml“
 
-( echo "id: $id";
-  echo "name: $name";
-  echo "memory: $memory";
-  echo "socket: $socket";
-  echo "iso: $iso";
-) >extra-var.$current_time.yml
+tee $current_extra_vars_file <<EOF
+id: $id
+name: $name
+memory: $memory
+socket: $socket
+iso: $iso
+EOF
 
 echo 'Running Ansible playbook.'
-sudo ansible-playbook -i hosts.ini install-vm.yml -e @extra-var.$current_time.yml
+sudo ansible-playbook -i hosts.ini install-vm.yml -e @current_extra_vars_file.yml
