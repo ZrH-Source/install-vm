@@ -11,7 +11,7 @@ read -p "Enter the memory of the vm (2048) : " memory
 read -p "Enter the socket of the vm (2) : " socket
 read -p "Enter the iso of the vm : (debian-11.3.0-amd64-netinst.iso) " iso
 
-id=${iso:-'100'}
+id=${id:-'100'}
 name=${name:-'debian'}
 memory=${memory:-'2048'}
 socket=${socket:-'2'}
