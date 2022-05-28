@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $(which ansible &>/dev/null) ]; then
+if [ $(which ansible &>/dev/null) ]; then 
   echo 'Installing ansible.'
   sudo apt update
   sudo apt install software-properties-common
@@ -12,7 +12,7 @@ read -p "Enter the id of the vm (100) : " id
 read -p "Enter the name of the vm (debian) : " name
 read -p "Enter the memory of the vm (2048) : " memory
 read -p "Enter the socket of the vm (2) : " socket
-read -p "Enter the iso of the vm : (debian-11.3.0-amd64-netinst.iso) " iso
+read -p "Enter the iso of the vm (debian-11.3.0-amd64-netinst.iso) : " iso
 
 id=${id:-'100'}
 name=${name:-'debian'}
