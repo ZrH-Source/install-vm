@@ -6,6 +6,11 @@ sudo add-apt-repository -y --update ppa:ansible/ansible
 sudo apt install software-properties-common ansible -y
 fi
 
+if [ $(which sshpass &>/dev/null) ]; then
+echo 'Installing ansible.'
+sudo apt install sshpass -y
+fi
+
 read -p "Enter the ip of the proxmox (192.168.122.217) : " host
 read -p "Enter the username of the proxmox (root) : " user
 read -s -p "Enter the password of the proxmox : " passwd
