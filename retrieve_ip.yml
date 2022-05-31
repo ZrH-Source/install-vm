@@ -1,0 +1,22 @@
+---
+- hosts: proxmox
+  tasks:    
+    - name: Create variable from command
+      shell: "qm config {{ id }} | grep net | cut -f 2 -d \"=\" | cut -f 1 -d \",\" | grep :"
+      register: mac_address
+
+    - name: Store as global
+      set_fact: mac_address="{{ mac_address.stdout }}"
+
+- hosts: localhost
+  connection: local
+  tasks:
+
+    - name: Grab the ip with an arp -a
+      shell: "arp -a | grep -i {{ hostvars['proxmox']['mac_address'] }} | awk -F \"[()]\" '{print $2}'"
+      register: arp_output
+
+    - name: Store the ip in ips.txt
+      copy: 
+        content: "{{ arp_output.stdout }}"
+        dest: ips.txt

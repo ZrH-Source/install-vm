@@ -1,5 +1,0 @@
-id: 100
-name: debian
-memory: 2048
-socket: 2
-iso: debian-11.3.0-amd64-netinst.iso
