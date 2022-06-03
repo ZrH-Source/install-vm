@@ -28,25 +28,5 @@ socket=${socket:-'2'}
 iso=${iso:-'debian-live-11.3.0-amd64-gnome.iso'}
 host=${host:-"192.168.122.217"}
 user=${user:-"root"}
-current_extra_vars_file="extra_vars.$(date "+%Y.%m.%d-%H.%M").yml"
 
-tee "hosts.ini" <<EOF
-[proxmox]
-proxmox ansible_host=$host ansible_ssh_user=$user ansible_ssh_pass=$passwd
-EOF
-
-tee $current_extra_vars_file <<EOF
-id: $id
-name: $name
-memory: $memory
-socket: $socket
-iso: $iso
-EOF
-
-echo 'Running Ansible playbook.'
-ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts.ini install-vm.yml -e @$current_extra_vars_file
-
-echo 'Waiting for the vm to start.'
-sleep 100
-ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts.ini retrieve_ip.yml -e @$current_extra_vars_file
-rm -f $current_extra_vars_file hosts.ini
+sh core.sh -n $name -m $memory -s $socket -i $iso -h $host -u user -p $passwd $id
