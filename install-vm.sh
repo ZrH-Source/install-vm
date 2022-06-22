@@ -52,9 +52,12 @@ APP_NAME=$name
 APP_MEMORY=$memory
 APP_SOCKET=$socket
 APP_ISO=$iso
+EXTRA_VARS=$current_extra_vars_file
 EOF
 
-docker build .
-docker run --net=host -v $PWD/ips.txt:/tmp/ips.txt -v $PWD/$current_extra_vars_file:/tmp/extra_vars.yml --env-file env.env $(sudo docker image ls | grep -m2 "" | grep none | awk '{print $3}')
+docker-compose build install-vm
+docker-compose --env-file env.env up install-vm
+
+#docker run --net=host -v $PWD/ips.txt:/tmp/ips.txt -v $PWD/$current_extra_vars_file:/tmp/extra_vars.yml --env-file env.env $(sudo docker image ls | grep -m2 "" | grep none | awk '{print $3}')
 
 rm -f $current_extra_vars_file hosts.ini env.env

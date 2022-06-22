@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  install-vm:
+    network_mode: "host" 
+    build: .
+    environment:
+      env_file: env.env
+    volumes:
+      - $PWD/ips.txt:/tmp/ips.txt
+      - $PWD/${EXTRA_VARS}:/tmp/extra_vars.yml

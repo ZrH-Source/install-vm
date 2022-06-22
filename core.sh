@@ -24,6 +24,7 @@ ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts.ini install-vm.yml -e 
 
 echo 'Waiting for the vm to start.'
 echo ''
+chown root:root /tmp/ips.txt
 sleep 60
 ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts.ini retrieve_ip.yml -e @extra_vars.yml
 echo 'Stopping the vm.'

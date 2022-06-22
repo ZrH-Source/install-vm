@@ -15,5 +15,4 @@ RUN chmod +x /tmp/core.sh
 
 WORKDIR /tmp
 
-#CMD tail -f /dev/null
 CMD ./core.sh -n, ${APP_NAME}, -m, ${APP_MEMORY}, -s, ${APP_SOCKET}, -i, ${APP_ISO} ${APP_ID}
