@@ -28,5 +28,33 @@ socket=${socket:-'2'}
 iso=${iso:-'debian-live-11.3.0-amd64-gnome.iso'}
 host=${host:-"192.168.122.217"}
 user=${user:-"root"}
+current_extra_vars_file="extra_vars.$(date "+%Y.%m.%d-%H.%M").yml"
 
-sh core.sh -n $name -m $memory -s $socket -i $iso -h $host -u user -p $passwd $id
+echo "Creating hosts.ini"
+tee "hosts.ini" <<EOF
+[proxmox]
+proxmox ansible_host=$host ansible_ssh_user=$user ansible_ssh_pass=$passwd
+EOF
+echo ''
+
+echo "Creating $current_extra_vars_file"
+tee "$current_extra_vars_file" <<EOF
+id: $id
+name: $name
+memory: $memory
+socket: $socket
+iso: $iso
+EOF
+
+tee "env.env" <<EOF
+APP_ID=$id
+APP_NAME=$name
+APP_MEMORY=$memory
+APP_SOCKET=$socket
+APP_ISO=$iso
+EOF
+
+docker build .
+docker run --net=host -v $PWD/ips.txt:/tmp/ips.txt -v $PWD/$current_extra_vars_file:/tmp/extra_vars.yml --env-file env.env $(sudo docker image ls | grep -m2 "" | grep none | awk '{print $3}')
+
+rm -f $current_extra_vars_file hosts.ini env.env

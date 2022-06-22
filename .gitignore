@@ -1,2 +1,4 @@
 Ansible/
 install-vm/
+extra_vars.*/
+ips.txt/

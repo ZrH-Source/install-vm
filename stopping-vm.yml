@@ -1,0 +1,5 @@
+---
+- hosts: proxmox
+  tasks:
+    - name: Stopping the vm
+      ansible.builtin.command: qm stop {{ id }}

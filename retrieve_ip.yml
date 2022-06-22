@@ -17,6 +17,8 @@
       register: arp_output
 
     - name: Store the ip in ips.txt
+      become: yes
       copy: 
+        unsafe_writes: yes
         content: "{{ arp_output.stdout }}"
         dest: ips.txt
