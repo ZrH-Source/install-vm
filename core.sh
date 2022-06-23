@@ -15,7 +15,6 @@ name=${name:-'debian'}
 memory=${memory:-'2048'}
 socket=${socket:-'2'}
 iso=${iso:-'debian-live-11.3.0-amd64-gnome.iso'}
-current_extra_vars_file="extra_vars.$(date "+%Y.%m.%d-%H.%M").yml"
 
 for id in $@; do :; done # Last args
 
