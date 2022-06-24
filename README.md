@@ -1,17 +1,21 @@
-# Installation of a VM on a Proxmox  
+# Installation of a VM on a Proxmox.
 
 To use the script, you have to install it (of course !)  
 git clone https://github.com/ZrH-Source/install-vm  
 
-After installing the script, just run these fews commands :  
-sudo chmod +x install-vm.sh  
-./install-vm.sh
+# Command for the usage.
 
-And follow what the script is going to ask you.  
-(You can change the default value in the code as you want of course, they are my default value for my own proxmox server.)  
+To use the script, you have to make sure you have docker installed. ( docker -v )
+
+Make sure the script (install-vm.sh) is an executable ( chmod +x install-vm.sh )
+After that, use the script as normal ( ./install-vm.sh ) and follow the instruction.
 
 # WARNING
-MAKE SURE THE VM IS ONLINE AND WELL STARTED WHEN THE SCRIPT IS BEING PAUSED.  
-To be sure, just connect to your proxmox using the web gui, go on the vm you just created using the script (yay) and look if the vm is started correctly, you have around 1.4minutes until the next command is being started.  
+You have to be sure the VM is well started, if not, it will not grab the ip in ips.txt. I've put a 1min delay to check if the vm is well started.
+To do so, connect to your proxmox server using the web interface, and check if your vm is well started.
 
-Enjoy ;)
+By the way, all the defaults values are for my own proxmox, you can change those values in the install-vm.sh and core.sh
+
+If you need any help, contact me on discord : Zarioch la Brioche#7028 or open an issue on github.
+
+Enjoy :)
