@@ -58,4 +58,6 @@ EOF
 docker-compose build install-vm
 docker-compose --env-file env.env up install-vm
 
-rm -f $current_extra_vars_file hosts.ini env.env
+echo "Your virtual machine ip is $(cat ips.txt)"
+
+rm -f $current_extra_vars_file hosts.ini env.env ips.txt
